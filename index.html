@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kewarin Sangphak - Full Stack Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            gap: 40px;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            flex: 0 0 28%;
+            position: sticky;
+            top: 40px;
+            height: fit-content;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .profile-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(102, 126, 234, 0.4);
+        }
+
+        .avatar {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .name {
+            font-size: 1.6em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .title {
+            color: #a0a0a0;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+
+        .bio {
+            font-size: 0.9em;
+            color: #c0c0c0;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .divider {
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            margin: 20px auto;
+        }
+
+        .contact {
+            text-align: left;
+            margin: 25px 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            font-size: 1.3em;
+        }
+
+        .contact-link {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: color 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: #667eea;
+        }
+
+        .socials {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .social-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #667eea;
+        }
+
+        .social-btn:hover {
+            background: rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffffff;
+        }
+
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, rgba(102, 126, 234, 0.5) 0%, transparent 100%);
+            margin-bottom: 25px;
+        }
+
+        .typing-wrapper {
+            font-size: 1.1em;
+            color: #a0a0a0;
+            line-height: 1.8;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background: #667eea;
+            margin-left: 4px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .item:hover {
+            background: rgba(102, 126, 234, 0.15);
+            transform: translateX(5px);
+        }
+
+        .item-emoji {
+            font-size: 1.3em;
+            min-width: 25px;
+        }
+
+        .item-text {
+            color: #c0c0c0;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        /* PROJECTS GRID */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .project {
+            background: rgba(102, 126, 234, 0.12);
+            border: 1px solid rgba(102, 126, 234, 0.25);
+            border-radius: 15px;
+            padding: 22px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project:hover {
+            background: rgba(102, 126, 234, 0.18);
+            border-color: rgba(102, 126, 234, 0.5);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .project:hover::before {
+            opacity: 1;
+        }
+
+        .project-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .project-emoji {
+            font-size: 1.6em;
+        }
+
+        .project-desc {
+            color: #a0a0a0;
+            font-size: 0.9em;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .project-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.35);
+        }
+
+        /* CONTRIBUTION GRAPH */
+        .graph-info {
+            display: flex;
+            gap: 15px;
+            font-size: 0.8em;
+            color: #808080;
+            margin-bottom: 15px;
+        }
+
+        .graph-level {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .color-box {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        .grid-contrib {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(16px, 1fr));
+            gap: 4px;
+        }
+
+        .cell {
+            aspect-ratio: 1;
+            border-radius: 3px;
+            background: rgba(102, 126, 234, 0.15);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .cell:hover {
+            background: rgba(102, 126, 234, 0.5);
+            transform: scale(1.15);
+            z-index: 10;
+        }
+
+        .cell.lv1 { background: rgba(102, 126, 234, 0.25); }
+        .cell.lv2 { background: rgba(102, 126, 234, 0.45); }
+        .cell.lv3 { background: rgba(102, 126, 234, 0.65); }
+        .cell.lv4 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .avatar {
+                width: 110px;
+                height: 110px;
+                font-size: 45px;
+            }
+
+            .name {
+                font-size: 1.4em;
+            }
+
+            .section-title {
+                font-size: 1.3em;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px 10px;
+                gap: 20px;
+            }
+
+            .avatar {
+                width: 90px;
+                height: 90px;
+                font-size: 35px;
+            }
+
+            .name {
+                font-size: 1.2em;
+            }
+
+            .section {
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .section-title {
+                font-size: 1.1em;
+            }
+
+            .typing-wrapper {
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="profile-card">
+                <div class="avatar">
+                    <img src="ส่งรูปภาพอาจาร์ยจุ๊บ.jpg" alt="profie-pic" class="avatar">
+                </div>
+                <h1 class="name">Kewarin Sangphak</h1>
+                <p class="title">Full Stack Developer</p>
+                <p class="bio">ชอบเขียนโค้ดและเรียนรู้เทคโนโลยีใหม่ๆ</p>
+                
+                <div class="divider"></div>
+
+                <div class="contact">
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <span>Thailand</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <a href="mailto:contact@example.com" class="contact-link">contact@example.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">💼</span>
+                        <a href="#" class="contact-link">linkedin.com/in/kewarin</a>
+                    </div>
+                </div>
+
+                <div class="socials">
+                    <a href="#" class="social-btn" title="GitHub">🐙</a>
+                    <a href="#" class="social-btn" title="Twitter">𝕏</a>
+                    <a href="#" class="social-btn" title="LinkedIn">💼</a>
+                    <a href="#" class="social-btn" title="Email">✉️</a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- RESUME SECTION -->
+            <section class="section">
+                <h2 class="section-title">👋 สวัสดี! ดิฉันชื่อ Kewarin</h2>
+                <div class="section-divider"></div>
+
+                <div class="typing-wrapper">
+                    <span id="typed"></span>
+                    <span class="typing-cursor"></span>
+                </div>
+
+                <div class="items-list">
+                    <div class="item">
+                        <span class="item-emoji">💻</span>
+                        <span class="item-text"><strong>Frontend:</strong> React, Vue.js, JavaScript, HTML/CSS, Tailwind CSS</span>
+                    </div>
+                    <div class="item">
+                        <span class="item-emoji">🔧</span>
+                        <span class="item-text"><strong>Backend:</strong> Node.js, Express, Python, MongoDB, PostgreSQL</span>
+                    </div>
+                    <div class="item">
+                        <span class="item-emoji">🎨</span>
+                        <span class="item-text"><strong>UI/UX:</strong> Figma, Responsive Design, Web Accessibility</span>
+                    </div>
+                    <div class="item">
+                        <span class="item-emoji">📚</span>
+                        <span class="item-text"><strong>เรียนรู้:</strong> TypeScript, Docker, GraphQL, AWS</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROJECTS SECTION -->
+            <section class="section">
+                <h2 class="section-title">⭐ Showcase Projects</h2>
+                <div class="section-divider"></div>
+
+                <div class="projects-grid">
+                    <div class="project">
+                        <div class="project-top">
+                            <h3 class="project-title">E-Commerce Platform</h3>
+                            <span class="project-emoji">🛍️</span>
+                        </div>
+                        <p class="project-desc">แพลตฟอร์มขายของออนไลน์พร้อมระบบชำระเงินและจัดการสินค้า</p>
+                        <div class="tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">MongoDB</span>
+                        </div>
+                        <button class="project-btn">ดูเพิ่มเติม →</button>
+                    </div>
+
+                    <div class="project">
+                        <div class="project-top">
+                            <h3 class="project-title">Task Management App</h3>
+                            <span class="project-emoji">✅</span>
+                        </div>
+                        <p class="project-desc">แอปจัดการงานประจำวันพร้อมระบบการจัดกลุ่มและการแจ้งเตือน</p>
+                        <div class="tags">
+                            <span class="tag">Vue.js</span>
+                            <span class="tag">Firebase</span>
+                            <span class="tag">PWA</span>
+                        </div>
+                        <button class="project-btn">ดูเพิ่มเติม →</button>
+                    </div>
+
+                    <div class="project">
+                        <div class="project-top">
+                            <h3 class="project-title">Blog CMS</h3>
+                            <span class="project-emoji">📝</span>
+                        </div>
+                        <p class="project-desc">ระบบบล็อกกับแดชบอร์ดจัดการเนื้อหา พร้อม SEO optimization</p>
+                        <div class="tags">
+                            <span class="tag">Next.js</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">Tailwind</span>
+                        </div>
+                        <button class="project-btn">ดูเพิ่มเติม →</button>
+                    </div>
+
+                    <div class="project">
+                        <div class="project-top">
+                            <h3 class="project-title">Real-time Chat</h3>
+                            <span class="project-emoji">💬</span>
+                        </div>
+                        <p class="project-desc">แอปแชทเรียลไทม์พร้อมระบบการแจ้งเตือนและการเข้ารหัส</p>
+                        <div class="tags">
+                            <span class="tag">Socket.io</span>
+                            <span class="tag">Express</span>
+                            <span class="tag">React</span>
+                        </div>
+                        <button class="project-btn">ดูเพิ่มเติม →</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTRIBUTION SECTION -->
+            <section class="section">
+                <h2 class="section-title">📊 Contribution Activity</h2>
+                <div class="section-divider"></div>
+
+                <div class="graph-info">
+                    <span style="color: #666;">Less</span>
+                    <div class="graph-level">
+                        <div class="color-box" style="background: rgba(102, 126, 234, 0.15);"></div>
+                    </div>
+                    <div class="graph-level">
+                        <div class="color-box" style="background: rgba(102, 126, 234, 0.35);"></div>
+                    </div>
+                    <div class="graph-level">
+                        <div class="color-box" style="background: rgba(102, 126, 234, 0.55);"></div>
+                    </div>
+                    <div class="graph-level">
+                        <div class="color-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                    </div>
+                    <span style="color: #666;">More</span>
+                </div>
+
+                <div class="grid-contrib" id="graph"></div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Typing Effect
+        const text = "ชอบเขียนโค้ดและเรียนรู้เทคโนโลยีใหม่ๆ ด้วยความสนใจสูงสุด สร้างสรรค์แอปพลิเคชันที่มีคุณค่า";
+        const typedEl = document.getElementById("typed");
+        let idx = 0;
+
+        function type() {
+            if (idx < text.length) {
+                typedEl.textContent += text[idx];
+                idx++;
+                setTimeout(type, 50);
+            }
+        }
+
+        window.addEventListener("load", type);
+
+        // Contribution Graph
+        const graph = document.getElementById("graph");
+        for (let i = 0; i < 365; i++) {
+            const cell = document.createElement("div");
+            cell.className = "cell";
+            const level = Math.floor(Math.random() * 5);
+            if (level > 0) cell.classList.add(`lv${level}`);
+            graph.appendChild(cell);
+        }
+
+        // Interactions
+        document.querySelectorAll(".project-btn").forEach(btn => {
+            btn.addEventListener("click", () => alert("🎉 ขอบคุณที่สนใจโปรเจกต์!"));
+        });
+    </script>
+</body>
+</html>
